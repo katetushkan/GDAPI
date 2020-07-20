@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SignIn</title>
+</head>
+<body>
+
+<div>
+    <table>
+        {% for item in data %}
+            <tr>
+                <form method="post" enctype="multipart/form-data" action="{% url 'upload' %}">
+                    {% csrf_token %}
+                    <td><input style="outline: none; border: none" type="text" name="item" value="{{ item.name }}" readonly></td>
+                    <td><button type="submit">Download</button></td>
+                </form>
+            </tr>
+       {% endfor %}
+    </table>
+
+    <br>
+
+    <form method="post"  enctype="multipart/form-data">
+        {% csrf_token %}
+        <input id='fileUpload' name="myFile" type="file">
+        <button>Upload</button>
+    </form>
+
+    <br>
+
+    <button id="btnStart">Start Record</button>
+    <button id="btnStop">Stop Record</button>
+    <button id="btnSave" type="submit">Save</button>
+
+    <p id="status">Status: </p>
+
+    <br>
+
+    <video controls></video>
+
+    <br>
+
+    <script src="{% static 'api/connect_to_device.js' %}"></script>
+
+    <form method="post" action="{% url 'video' %}">
+        {% csrf_token %}
+        <video id="vidSave" controls></video>
+    </form>
+
+
+
+</div>
+
+</body>
+</html>
